@@ -1,0 +1,15 @@
+{
+  "name": "easy-pdf",
+  "description": "Library for generating pdf reports from different source types",
+  "author": {
+    "name": "Andriy Ermolenko",
+    "email": "andriy.ermolenko@gmail.com"
+  },
+  "dependencies": {
+    "html-pdf": "^1.1.0",
+    "jade": "^1.9.2",
+    "shortid": "^2.2.1"
+  },
+  "version": "0.0.1",
+  "readme": "./REAMDE.md"
+}
