@@ -10,7 +10,7 @@
     "jade": "^1.9.2",
     "shortid": "^2.2.1"
   },
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "./lib.js",
   "repository": {
     "type": "git",
