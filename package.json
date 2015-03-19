@@ -12,7 +12,6 @@
   },
   "version": "0.0.2",
   "main": "./lib.js",
-  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "https://github.com/invercity/easy-pdf.git"
