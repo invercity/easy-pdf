@@ -1,0 +1,16 @@
+doctype html
+html
+    head
+        style
+            include main.css
+    body
+    h1 #{title}
+    h2 #{description}
+    .cols
+        each column, index in records ? records: []
+            .col
+                ul
+                    lh= names[index]
+                    each val in column ? column: []
+                        li= val
+

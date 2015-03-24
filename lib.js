@@ -12,14 +12,17 @@
     var pdf = require('html-pdf');
     var shortid = require('shortid');
     var jade  = require('jade');
+    var path = require('path');
+    // defaults
+    var DEFAULT_TPL = path.join(__dirname, './templates/main.jade');
     // library
     module.exports = {
         // attributes section
         _id: 0,
         columns: [],
         names: [],
-        defaultTmpl: 'h1 #{reportTitle}\n' +
-                     'h2 #{reportDesc}',
+        title: '',
+        desc: '',
 
         // methods section
 
@@ -29,11 +32,13 @@
          */
         init: function(data) {
             this._id = data.id || shortid.generate();
-            this.columns = data.columns;
+            this.records = data.records;
             this.names = data.names;
             this.title = data.title || 'No name';
             this.desc = data.desc || 'No description';
+            return this;
         },
+
         /**
          * Get list of columns
          * @return {*}
@@ -42,22 +47,42 @@
             return this.columns;
         },
 
-        getData: function() {
+        /**
+         * Get title
+         * @return {string}
+         */
+        getTitle: function() {
             return this.title;
         },
 
         /**
-         * Write result data to stream
-         * @param stream (optional)
+         * Generate HTML from data
          */
-        write: function(stream) {
-            var ws = stream || fs.createWriteStream(this._id + '.pdf');
-            var fn = jade.compile(this.defaultTmpl);
-            var html = fn({
-                reportTitle: this.title,
-                reportDesc: this.desc
+        generateHTML: function() {
+            var fn = jade.compileFile(DEFAULT_TPL);
+            return fn({
+                css: './main.css',
+                title: this.title,
+                description: this.desc,
+                names: this.names,
+                records: this.records
             });
-            console.log(html);
+        },
+
+        /**
+         * Write result data to stream
+         * @param dist (optional)
+         */
+        write: function(dist) {
+            var fileName = path.join(dist || '',  this._id + '.pdf');
+            var ws = fs.createWriteStream(fileName);
+            var html = this.generateHTML();
+            pdf.create(html, {
+                border: '5mm'
+            }).toStream(function(err, stream) {
+                if (!err) stream.pipe(ws);
+                else console.log(err);
+            });
         }
     };
 }());
