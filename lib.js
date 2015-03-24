@@ -31,7 +31,7 @@
          * @param data
          */
         init: function(data) {
-            this._id = data.id || shortid.generate();
+            this._id = data.fileName || shortid.generate();
             this.records = data.records;
             this.names = data.names;
             this.title = data.title || 'No name';
@@ -72,9 +72,10 @@
         /**
          * Write result data to stream
          * @param dist (optional)
+         * @param name (optional)
          */
-        write: function(dist) {
-            var fileName = path.join(dist || '',  this._id + '.pdf');
+        write: function(dist, name) {
+            var fileName = path.join(dist || '', name || this._id + '.pdf');
             var ws = fs.createWriteStream(fileName);
             var html = this.generateHTML();
             pdf.create(html, {
