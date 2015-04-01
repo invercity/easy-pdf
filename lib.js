@@ -19,10 +19,15 @@
     module.exports = {
         // attributes section
         _id: 0,
+        css: './main.css',
         columns: [],
         names: [],
-        title: '',
-        desc: '',
+        title: 'No title',
+        description: 'No description',
+        fontSize: '12px',
+        records: [],
+        orientation: 'portrait',
+        border: '5mm',
 
         // methods section
 
@@ -32,10 +37,12 @@
          */
         init: function(data) {
             this._id = data.fileName || shortid.generate();
-            this.records = data.records;
-            this.names = data.names;
-            this.title = data.title || 'No name';
-            this.desc = data.desc || 'No description';
+            data.records && (this.records = data.records);
+            data.names && (this.names = data.names);
+            data.title && (this.title = data.title);
+            data.desc && (this.description = data.desc);
+            data.fontSize && (this.fontSize = data.fontSize);
+            data.mode && (this.orientation = data.mode);
             return this;
         },
 
@@ -60,13 +67,7 @@
          */
         generateHTML: function() {
             var fn = jade.compileFile(DEFAULT_TPL);
-            return fn({
-                css: './main.css',
-                title: this.title,
-                description: this.desc,
-                names: this.names,
-                records: this.records
-            });
+            return fn(this);
         },
 
         /**
@@ -75,11 +76,13 @@
          * @param name (optional)
          */
         write: function(dist, name) {
+            var obj = this;
             var fileName = path.join(dist || '', name || this._id + '.pdf');
             var ws = fs.createWriteStream(fileName);
             var html = this.generateHTML();
             pdf.create(html, {
-                border: '5mm'
+                border: obj.border,
+                orientation: obj.orientation
             }).toStream(function(err, stream) {
                 if (!err) stream.pipe(ws);
                 else console.log(err);

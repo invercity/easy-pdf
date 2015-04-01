@@ -6,7 +6,7 @@ html
     body
     h1 #{title}
     h2 #{description}
-    .cols
+    .cols(style={"font-size": fontSize})
         each column, index in names ? names: []
             .col
                 ul
