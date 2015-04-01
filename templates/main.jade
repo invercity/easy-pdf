@@ -7,9 +7,9 @@ html
     h1 #{title}
     h2 #{description}
     .cols
-        each column, index in records ? records: []
+        each column, index in names ? names: []
             .col
                 ul
                     lh= names[index]
-                    each val in column ? column: []
-                        li= val
+                    each item in records ? records: []
+                        li= item[index]

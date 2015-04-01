@@ -6,10 +6,10 @@
     var report = pdf.init(options);
     var file = report.write(destination, name);
 ## Options
-```id``` - Report id (name) <br/>
+```fileName``` - Report id (name) <br/>
 ```title``` - Report title <br/>
 ```desc```- Report description <br/>
 ```records``` - Report data <br/>
 ```names``` - Report column names <br/>
 ## Current version
-0.1.1
+0.1.3
