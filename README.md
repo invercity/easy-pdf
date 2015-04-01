@@ -13,5 +13,8 @@
 ```names``` - Report column names <br/>
 ```fontSize``` - Report data font size (default: '12px') <br/>
 ```mode``` - Report orientaton (default: 'portrait') <br/>
+```author``` - Report author (default: 'Default author') <br/>
+```headerHeight``` - Report header height (default: '5mm') <br/>
+```footerHeight``` - Report footer height (default: '7mm') <br/>
 ## Current version
-0.1.4
+0.1.5

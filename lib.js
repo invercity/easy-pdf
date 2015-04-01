@@ -28,6 +28,12 @@
         records: [],
         orientation: 'portrait',
         border: '5mm',
+        header: {
+            height: '5mm'
+        },
+        footer: {
+            height: '7mm'
+        },
 
         // methods section
 
@@ -37,12 +43,18 @@
          */
         init: function(data) {
             this._id = data.fileName || shortid.generate();
+            this.header.contents = '<div style="text-align: center;">Author: ' + data.author || 'Default author' + '</div>';
+            this.footer.contents = '<div style="font-size: 12px"><span>page {{page}}</span>of <span>{{pages}}</span>' +
+            '<span style="float: right;">'+ new Date().toLocaleDateString() + '</span></div>';
+            data.headerHeight && (this.header.height = data.headerHeight);
+            data.footerHeight && (this.footer.height = data.footerHeight);
             data.records && (this.records = data.records);
             data.names && (this.names = data.names);
             data.title && (this.title = data.title);
             data.desc && (this.description = data.desc);
             data.fontSize && (this.fontSize = data.fontSize);
             data.mode && (this.orientation = data.mode);
+
             return this;
         },
 
@@ -82,7 +94,9 @@
             var html = this.generateHTML();
             pdf.create(html, {
                 border: obj.border,
-                orientation: obj.orientation
+                orientation: obj.orientation,
+                header: obj.header,
+                footer: obj.footer
             }).toStream(function(err, stream) {
                 if (!err) stream.pipe(ws);
                 else console.log(err);
