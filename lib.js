@@ -13,13 +13,14 @@
     var shortid = require('shortid');
     var jade  = require('jade');
     var path = require('path');
+    var _ = require('underscore');
     // defaults
     var DEFAULT_TPL = path.join(__dirname, './templates/main.jade');
     // library
     module.exports = {
         // attributes section
         _id: 0,
-        css: './main.css',
+        author: 'Default author',
         columns: [],
         names: [],
         title: 'No title',
@@ -34,6 +35,8 @@
         footer: {
             height: '7mm'
         },
+        type: 'pdf',
+        format: 'A4',
 
         // methods section
 
@@ -43,18 +46,27 @@
          */
         init: function(data) {
             this._id = data.fileName || shortid.generate();
-            this.header.contents = '<div style="text-align: center;">Author: ' + data.author || 'Default author' + '</div>';
+            data.author && (this.author = data.author);
+            this.header.contents = '<div style="text-align: center;">Author: ' + this.author + '</div>';
             this.footer.contents = '<div style="font-size: 12px"><span>page {{page}}</span>of <span>{{pages}}</span>' +
             '<span style="float: right;">'+ new Date().toLocaleDateString() + '</span></div>';
             data.headerHeight && (this.header.height = data.headerHeight);
             data.footerHeight && (this.footer.height = data.footerHeight);
             data.records && (this.records = data.records);
             data.names && (this.names = data.names);
+            // fix names if they were not selected by default
+            data.names || (this.names = _.map(data.columns, function(el) {
+                return {
+                    name: el,
+                    title: el
+                }
+            }));
+            data.columns && (this.columns = data.columns);
             data.title && (this.title = data.title);
             data.desc && (this.description = data.desc);
             data.fontSize && (this.fontSize = data.fontSize);
             data.mode && (this.orientation = data.mode);
-
+            data.type && (this.type = data.type);
             return this;
         },
 
@@ -89,14 +101,16 @@
          */
         write: function(dist, name) {
             var obj = this;
-            var fileName = path.join(dist || '', name || this._id + '.pdf');
+            var fileName = path.join(dist || '', name || this._id + '.' + this.type);
             var ws = fs.createWriteStream(fileName);
             var html = this.generateHTML();
             pdf.create(html, {
                 border: obj.border,
                 orientation: obj.orientation,
                 header: obj.header,
-                footer: obj.footer
+                footer: obj.footer,
+                type: obj.type,
+                format: obj.format
             }).toStream(function(err, stream) {
                 if (!err) stream.pipe(ws);
                 else console.log(err);

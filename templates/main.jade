@@ -1,15 +1,29 @@
 doctype html
 html
     head
-        style
-            include main.css
+        style.
+            .col {
+                display: inline-block;
+                border: 1px dotted;
+                margin-right: 10px;
+                margin-bottom: 20px;
+                padding-right: 20px;
+                padding-left: 0;
+                border-radius: 4px;
+            }
+            ul {
+                list-style: none;
+            }
+            lh {
+                font-weight: bold;
+            }
     body
     h1 #{title}
     h2 #{description}
     .cols(style={"font-size": fontSize})
-        each column, index in names ? names: []
+        each item in names ? names: []
             .col
                 ul
-                    lh= names[index]
-                    each item in records ? records: []
-                        li= item[index]
+                    lh= item.title
+                    each record in records ? records: []
+                        li= record[columns.indexOf(item.name)]
