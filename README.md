@@ -1,5 +1,6 @@
 # easy-pdf
 ### Create pdf reports from different sources
+[![NPM Version][npm-image]][npm-url]
 
 ## Usage
     var pdf = require('easy-pdf');
@@ -22,5 +23,6 @@
 ```type``` - Report type, possible values: 'pdf', 'png', 'jpeg' (default: 'pdf') <br/>
 ```border``` - Report border (default: '5mm') <br/>
 ```format``` - Report format (default: 'A4') <br/>
-## Current version
-0.1.8
+
+[npm-image]: https://img.shields.io/npm/v/easy-pdf.svg
+[npm-url]: https://npmjs.org/package/easy-pdf
