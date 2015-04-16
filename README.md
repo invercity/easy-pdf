@@ -5,6 +5,8 @@
     var pdf = require('easy-pdf');
     var report = pdf.init(options);
     var file = report.write(destination, name);
+    var html = report.generateHTML(excludeCss);
+    var css = report.getCSS();
 ## Options
 ```fileName``` - Report fileName (default: generated) <br/>
 ```title``` - Report title (default: 'No title') <br/>
@@ -21,4 +23,4 @@
 ```border``` - Report border (default: '5mm') <br/>
 ```format``` - Report format (default: 'A4') <br/>
 ## Current version
-0.1.6
+0.1.8

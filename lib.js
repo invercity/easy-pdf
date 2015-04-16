@@ -89,9 +89,15 @@
         /**
          * Generate HTML from data
          */
-        generateHTML: function() {
+        generateHTML: function(excludeCss) {
             var fn = jade.compileFile(DEFAULT_TPL);
+            // set exclude param
+            if (excludeCss) _.extend(this, {excludeCss: excludeCss});
             return fn(this);
+        },
+
+        getCSS: function() {
+            return fs.readFileSync('./templates/style.css', 'utf8');
         },
 
         /**

@@ -13,4 +13,7 @@ var report = easyreport.init({
     mode: 'landscape'
 });
 if (!process.env.LOG) report.write();
-else console.log(report.generateHTML());
+else {
+    console.log(report.generateHTML());
+    console.log(report.getCSS())
+}
