@@ -1,6 +1,6 @@
 {
   "name": "easy-pdf",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "Library for generating pdf reports from different source types",
   "author": {
     "name": "Andriy Ermolenko",
@@ -13,6 +13,10 @@
     "underscore": "^1.8.2"
   },
   "main": "./lib.js",
+  "scripts": {
+    "test": "rm -rf ./*.pdf && node test/main",
+    "clean": "rm -rf ./*.pdf"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/invercity/easy-pdf.git"

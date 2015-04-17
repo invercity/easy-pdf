@@ -1,8 +1,10 @@
 extends condition
 
 block content
-    h1 #{title}
-    h2 #{description}
+    if (title)
+        h2 #{title}
+    if (description)
+        h2 #{description}
     .cols(style={"font-size": fontSize})
         each item in names ? names: []
             .pdf-column

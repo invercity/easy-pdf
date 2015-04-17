@@ -9,8 +9,9 @@
 (function() {
     // import dependencies
     var fs = require('fs');
+    var util = require('util');
     var pdf = require('html-pdf');
-    var shortid = require('shortid');
+    var idGenerator = require('shortid');
     var jade  = require('jade');
     var path = require('path');
     var _ = require('underscore');
@@ -24,8 +25,6 @@
         author: 'Default author',
         columns: [],
         names: [],
-        title: 'No title',
-        description: 'No description',
         fontSize: '12px',
         records: [],
         orientation: 'portrait',
@@ -44,14 +43,28 @@
          * @param data
          */
         init: function(data) {
-            this._id = data.fileName || shortid.generate();
-            data.author && (this.author = data.author);
-            this.header.contents = '<div style="text-align: center;">Author: ' + this.author + '</div>';
-            this.footer.contents = '<div style="font-size: 12px"><span>page {{page}}</span>of <span>{{pages}}</span>' +
-            '<span style="float: right;">'+ new Date().toLocaleDateString() + '</span></div>';
+            // static data
+            var headerContent = '<div style="text-align: center;">Author: %s</div>';
+            var footerContent = '<div style="font-size: 12px">%s</div>';
+            // default paging and time templates
+            var paging = '<span>page {{page}}</span>of <span>{{pages}}</span>';
+            var time = '<span style="float: right;"> %s </span>';
+            var defaultFooterContent = '';
+            // set doc id (fileName)
+            this._id = data.fileName || idGenerator.generate();
+            // set footer data (author)
+            data.author && (this.header.contents = util.format(headerContent, data.author));
+            // set header data
+            data.paging && (defaultFooterContent += paging);
+            data.time && (defaultFooterContent += util.format(time, new Date().toLocaleDateString()));
+            '' !== defaultFooterContent && (this.footer.contents = util.format(footerContent, defaultFooterContent));
+            // set header height
             data.headerHeight && (this.header.height = data.headerHeight);
+            // set footer height
             data.footerHeight && (this.footer.height = data.footerHeight);
+            // set report data ([[]])
             data.records && (this.records = data.records);
+            // set selected names of columns
             data.names && (this.names = data.names);
             // fix names if they were not selected by default
             data.names || (this.names = _.map(data.columns, function(el) {
@@ -60,11 +73,17 @@
                     title: el
                 }
             }));
+            // set ALL list of columns
             data.columns && (this.columns = data.columns);
+            // set report title
             data.title && (this.title = data.title);
+            // set report description (optional parameter)
             data.desc && (this.description = data.desc);
+            // set global document font size
             data.fontSize && (this.fontSize = data.fontSize);
+            // set report mode
             data.mode && (this.orientation = data.mode);
+            // set output format
             data.type && (this.type = data.type);
             //data.cssFile && (this.cssFile = data.cssFile);
             return this;
