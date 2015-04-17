@@ -39,8 +39,6 @@
         type: 'pdf',
         format: 'A4',
 
-        // methods section
-
         /**
          * init report structure
          * @param data
