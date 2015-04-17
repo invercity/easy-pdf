@@ -3,10 +3,16 @@
 [![NPM Version][npm-image]][npm-url]
 
 ## Usage
+    // import package
     var pdf = require('easy-pdf');
+    // init report
     var report = pdf.init(options);
+    // write report to file
     var file = report.write(destination, name);
-    var html = report.generateHTML();
+    // generate basic HTML report
+    var html = report.generateHTML(dataOptions);
+    // generate HTML for include anywhere
+    var innerHTML = report.generateInnerHTML();
 
 ## Options
 ```fileName``` - Report fileName (default: generated) <br/>
@@ -23,7 +29,6 @@
 ```type``` - Report type, possible values: 'pdf', 'png', 'jpeg' (default: 'pdf') <br/>
 ```border``` - Report border (default: '5mm') <br/>
 ```format``` - Report format (default: 'A4') <br/>
-```cssFile``` - Use your own style for report
 
 ## Style class names
 ```pdf-column``` = column style <br/>

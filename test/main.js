@@ -10,8 +10,7 @@ var report = easyreport.init({
     columns: ['a','b','c'],
     records: [[1, 2, 3], [2, 3, 4], [3, 2, 3], [12, 45, 5], [1, 2, 3], [2, 3, 4], [3, 2, 3], [12, 45, 5]],
     fontSize: '20px',
-    mode: 'landscape',
-    cssFile: '../app/css/some.css'
+    mode: 'landscape'
 });
 if (!process.env.LOG) report.write();
 else console.log(report.generateHTML());

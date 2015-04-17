@@ -20,7 +20,7 @@
     module.exports = {
         // attributes section
         _id: 0,
-        cssFile: 'style.css',
+        //cssFile: 'style.css',
         author: 'Default author',
         columns: [],
         names: [],
@@ -68,7 +68,7 @@
             data.fontSize && (this.fontSize = data.fontSize);
             data.mode && (this.orientation = data.mode);
             data.type && (this.type = data.type);
-            data.cssFile && (this.cssFile = data.cssFile);
+            //data.cssFile && (this.cssFile = data.cssFile);
             return this;
         },
 
@@ -90,9 +90,20 @@
 
         /**
          * Generate HTML from data
+         * @param options - additional options
+         * @return {*}
          */
-        generateHTML: function() {
-            return jade.compileFile(DEFAULT_TPL)(this);
+        generateHTML: function(options) {
+            var object = _.extend(this, options);
+            return jade.compileFile(DEFAULT_TPL)(object);
+        },
+
+        /**
+         * Generate HTML without Doctype
+         * @return {*}
+         */
+        generateInnerHTML: function() {
+            return this.generateHTML({excludeLayout: true});
         },
 
         /**

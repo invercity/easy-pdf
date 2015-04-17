@@ -1,9 +1,7 @@
-doctype html
-html
-    head
-        link(rel="stylesheet", href=cssFile)
+if (!excludeLayout)
+    extends layout
 
-    body
+block content
     h1 #{title}
     h2 #{description}
     .cols(style={"font-size": fontSize})
