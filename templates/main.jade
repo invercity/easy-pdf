@@ -1,17 +1,15 @@
 doctype html
 html
     head
-        style
-            if !excludeCss
-                include style.css
+        link(rel="stylesheet", href=cssFile)
 
     body
     h1 #{title}
     h2 #{description}
     .cols(style={"font-size": fontSize})
         each item in names ? names: []
-            .col
-                ul
-                    lh= item.title
+            .pdf-column
+                ul.pdf-list
+                    lh.pdf-list-header= item.title
                     each record in records ? records: []
                         li= record[columns.indexOf(item.name)]
