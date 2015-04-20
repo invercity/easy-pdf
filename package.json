@@ -1,6 +1,6 @@
 {
   "name": "easy-pdf",
-  "version": "0.1.12",
+  "version": "0.2.0",
   "description": "Library for generating pdf reports from different source types",
   "author": {
     "name": "Andriy Ermolenko",
@@ -10,7 +10,8 @@
     "html-pdf": "^1.1.0",
     "jade": "^1.9.2",
     "shortid": "^2.2.1",
-    "underscore": "^1.8.2"
+    "underscore": "^1.8.2",
+    "bootstrap": "^3.3.2"
   },
   "main": "./lib.js",
   "scripts": {
