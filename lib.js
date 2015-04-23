@@ -25,7 +25,7 @@
         author: 'Default author',
         columns: [],
         names: [],
-        fontSize: '20px',
+        fontSize: '12px',
         records: [],
         orientation: 'portrait',
         border: '7mm',
