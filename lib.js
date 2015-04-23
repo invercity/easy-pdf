@@ -25,15 +25,15 @@
         author: 'Default author',
         columns: [],
         names: [],
-        fontSize: '12px',
+        fontSize: '20px',
         records: [],
         orientation: 'portrait',
-        border: '5mm',
+        border: '7mm',
         header: {
-            height: '5mm'
+            height: '8mm'
         },
         footer: {
-            height: '7mm'
+            height: '8mm'
         },
         type: 'pdf',
         format: 'A4',
@@ -56,7 +56,7 @@
             data.author && (this.header.contents = util.format(headerContent, data.author));
             // set header data
             data.paging && (defaultFooterContent += paging);
-            data.time && (defaultFooterContent += util.format(time, new Date().toLocaleDateString()));
+            data.time && (defaultFooterContent += util.format(time, (new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString())));
             '' !== defaultFooterContent && (this.footer.contents = util.format(footerContent, defaultFooterContent));
             // set header height
             data.headerHeight && (this.header.height = data.headerHeight);

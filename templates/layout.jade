@@ -1,8 +1,31 @@
 doctype html
 html
     head
-        style
-           include ../node_modules/bootstrap/dist/css/bootstrap.min.css
+        style.
+            .pdf-column {
+                text-align: center;
+                display: inline-block;
+                margin-bottom: 20px;
+            }
+
+            .pdf-list {
+                list-style: none;
+            }
+
+            .pdf-list-header {
+                font-size: 16px;
+                color: #000080;
+                font-weight: bold;
+            }
+            ul li {
+                background: #99b168;
+                padding: 3px;
+                color: #ffffff;
+            }
+            ul li:nth-child(even) {
+                color: #000000;
+                background: #f1f1f1;
+            }
 
         body
             block content
