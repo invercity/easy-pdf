@@ -30,10 +30,10 @@
         orientation: 'portrait',
         border: '7mm',
         header: {
-            height: '8mm'
+            height: '10mm'
         },
         footer: {
-            height: '8mm'
+            height: '5mm'
         },
         type: 'pdf',
         format: 'A4',
