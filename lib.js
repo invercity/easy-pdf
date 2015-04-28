@@ -152,7 +152,7 @@
          */
         style: function() {
             return function(req, res, next) {
-                if ('/report-style.css' == req.url) res.send(__dirname + 'templates/style.css');
+                if ('/report-style.css' == req.url) res.sendFile(__dirname + '/templates/style.css');
                 else next();
             }
         }
