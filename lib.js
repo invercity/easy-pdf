@@ -144,17 +144,6 @@
                 if (!err) stream.pipe(ws);
                 else console.log(err);
             });
-        },
-
-        /**
-         * Express middleware for handling easy-pdf styles
-         * @return {Function}
-         */
-        style: function() {
-            return function(req, res, next) {
-                if ('/report-style.css' == req.url) res.sendFile(__dirname + '/templates/style.css');
-                else next();
-            }
         }
     };
 }());
