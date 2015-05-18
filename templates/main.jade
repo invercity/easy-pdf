@@ -11,6 +11,6 @@ block content
         each item in names ? names: []
             .pdf-column
                 ul.pdf-list
-                    lh.pdf-list-header= item.title
+                    lh.pdf-list-header= item.value
                     each record in records ? records: []
                         li= record[columns.indexOf(item.name)]
