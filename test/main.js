@@ -2,13 +2,56 @@
  * Created by Andriy Ermolenko on 24.03.15.
  */
 var easyreport = require('../lib');
+
+var DEFAULT_TITLE_STYLE = {
+    backgroundColor: "#fff",
+    borderColor: "#000",
+    borderStyle: "solid",
+    borderWidth: 1,
+    color: "#000",
+    fontFamily: "Arial, Helvetica, sans-serif",
+    fontSize: 19,
+    mask: 0,
+    textAlign: "left",
+    verticalAlign: "top"
+};
+
+var DEFAULT_COL_HEADER_STYLE =  {
+    backgroundColor: "#fff",
+        borderColor: "#000",
+        borderStyle: "solid",
+        borderWidth: 1,
+        color: "#111",
+        fontFamily: "Arial, Helvetica, sans-serif",
+        fontSize: 20,
+        mask: parseInt('10000', 2),
+        textAlign: "left",
+        verticalAlign: "top"
+};
+
+var DEFAULT_COL_DATA_STYLE = {
+    backgroundColor: "#fff",
+        borderColor: "#000",
+        borderStyle: "solid",
+        borderWidth: 1,
+        color: "#111",
+        fontFamily: "Arial, Helvetica, sans-serif",
+        fontSize: 20,
+        mask: parseInt('10000', 2),
+        textAlign: "left",
+        verticalAlign: "top"
+};
+
 var report = easyreport.init({
-    title: 'Report1',
+    title: {
+        value: 'Report1',
+        style: DEFAULT_TITLE_STYLE
+    },
     author: 'Andrew',
     names: [
-        {name: 'a', value: 'AAA'},
-        {name: 'c', value: 'Something else'},
-        {name: 'v', value: 'Another'}
+        {name: 'a', value: 'AAA', style: DEFAULT_COL_HEADER_STYLE},
+        {name: 'c', value: 'Something else', style: DEFAULT_COL_HEADER_STYLE},
+        {name: 'v', value: 'Another', style: DEFAULT_COL_HEADER_STYLE}
     ],
     columns: ['a','b','c','v'],
     records: [
@@ -34,10 +77,16 @@ var report = easyreport.init({
         [3, 2, 3, 46346346346346],
         [3, 2, 3, 46346346346346]
     ],
-    fontSize: '12px',
-    mode: 'portrait',
-    paging: true,
-    time: true
+    options: {
+        fontSize: '16px',
+        columns: {
+            style: DEFAULT_COL_DATA_STYLE
+        },
+        mode: 'portrait',
+        paging: false,
+        time: true
+    }
+
 });
 if (!process.env.LOG) report.write();
 else console.log(report.generateInnerHTML());
