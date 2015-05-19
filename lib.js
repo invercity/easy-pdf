@@ -161,7 +161,7 @@
             // set font size
             data.options.fontSize && (this.options.fontSize = data.options.fontSize);
             // set columns style
-            data.options.columns && (this.options.columns = data.options.columns);
+            data.options.columns && (this.options.columns = parseStyle(data.options.columns));
             // return initialized
             return this;
         },
