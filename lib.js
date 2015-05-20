@@ -42,22 +42,18 @@
     };
 
     /**
-     * Parse style value to real params
+     * Exclude borders with 'none-border
      *
-     * @param pos
-     * @param width
-     * @return {number}
+     * @param mask
+     * @return {{}}
      */
-    var parseBorderWidth = function (pos, width) {
-        var value = 0, wValue = width + "px";
-        // check if NONE-border
-        if (0 != pos % bin(4)) {
-            var borders = [];
-            // TOP, RIGHT, BOTTOM, LEFT
-            for (var i = 0; i < 4; i++) borders[i] = (pos & bin(i)) ? wValue : 0;
-            value = borders.join(' ');
+    var checkBorder = function(mask) {
+        var borders = ['border-top','border-right', 'border-bottom', 'border-left'];
+        var res = {};
+        for (var i = 0; i < 4; i++) {
+            if (mask & bin(i)) {} else res[borders[i]] = 'none';
         }
-        return value;
+        return res;
     };
 
     /**
@@ -66,9 +62,10 @@
      * @return {*}
      */
     var parseStyle = function (obj) {
-       if (obj.style) {
+        if (obj.style) {
+            var clone = _.clone(obj);
             var style = obj.style;
-            obj.style = {
+            clone.style = {
                 "font-family": style.fontFamily,
                 "font-size": style.fontSize + "px",
                 "font-weight": (style.mask & bin(4)) ? "bold" : "normal",
@@ -77,19 +74,18 @@
                 "text-align": style.textAlign,
                 "color": style.color,
                 "background-color": style.backgroundColor,
-                "border-style": style.borderStyle,
-                "border-color": style.borderColor,
-                "border-width": parseBorderWidth(style.mask, style.borderWidth)
+                "border": [style.borderWidth + "px", style.borderStyle, style.borderColor].join(" "),
             };
+            _.extend(clone.style, checkBorder(style.mask));
         }
-        return obj;
+        return clone;
     };
 
     /**
      * Main Library
      */
 
-     module.exports = {
+    module.exports = {
         // attributes section
         _id: 0,
         author: 'Default author',
@@ -210,6 +206,7 @@
             var fileName = path.join(dist || '', name || this._id + '.' + this.options.type);
             var ws = fs.createWriteStream(fileName);
             var html = this.generateHTML();
+            //fs.writeFileSync('result.html', html, 'utf8');
             pdf.create(html, {
                 border: obj.border,
                 orientation: obj.options.orientation,
