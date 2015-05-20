@@ -62,8 +62,9 @@
      * @return {*}
      */
     var parseStyle = function (obj) {
+        var clone;
         if (obj.style) {
-            var clone = _.clone(obj);
+            clone = _.clone(obj);
             var style = obj.style;
             clone.style = {
                 "font-family": style.fontFamily,
@@ -74,7 +75,8 @@
                 "text-align": style.textAlign,
                 "color": style.color,
                 "background-color": style.backgroundColor,
-                "border": [style.borderWidth + "px", style.borderStyle, style.borderColor].join(" ")
+                "border": [style.borderWidth + "px", style.borderStyle, style.borderColor].join(" "),
+                "padding": style.padding.join("px ") + "px"
             };
             _.extend(clone.style, checkBorder(style.mask));
         }
