@@ -51,7 +51,7 @@
         var borders = ['border-top','border-right', 'border-bottom', 'border-left'];
         var res = {};
         for (var i = 0; i < 4; i++) {
-            if (mask & bin(i)) {} else res[borders[i]] = 'none';
+            if (!(mask & bin(i))) res[borders[i]] = 'none';
         }
         return res;
     };
@@ -74,7 +74,7 @@
                 "text-align": style.textAlign,
                 "color": style.color,
                 "background-color": style.backgroundColor,
-                "border": [style.borderWidth + "px", style.borderStyle, style.borderColor].join(" "),
+                "border": [style.borderWidth + "px", style.borderStyle, style.borderColor].join(" ")
             };
             _.extend(clone.style, checkBorder(style.mask));
         }
@@ -118,8 +118,8 @@
             var headerContent = '<div style="text-align: center;">Author: %s</div>';
             var footerContent = '<div style="font-size: 12px">%s</div>';
             // default paging and time templates
-            var paging = '<span>page {{page}}</span>of <span>{{pages}}</span>';
-            var time = '<span style="float: right;"> %s </span>';
+            var paging = '<div style="float: right"><span>page {{page}}</span>of <span>{{pages}}</span></div> ';
+            var time = '<span style="float: left;"> %s </span>';
             var defaultFooterContent = '';
             // set doc id (fileName)
             this._id = data.fileName || idGenerator.generate();

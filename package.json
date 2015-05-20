@@ -1,6 +1,6 @@
 {
   "name": "easy-pdf",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Library for generating pdf reports from different source types",
   "author": {
     "name": "Andriy Ermolenko",

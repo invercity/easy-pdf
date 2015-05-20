@@ -83,7 +83,7 @@ var report = easyreport.init({
             style: DEFAULT_COL_DATA_STYLE
         },
         mode: 'portrait',
-        paging: false,
+        paging: true,
         time: true
     }
 
