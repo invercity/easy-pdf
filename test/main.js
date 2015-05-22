@@ -13,33 +13,36 @@ var DEFAULT_TITLE_STYLE = {
     fontSize: 19,
     mask: 0,
     textAlign: "left",
-    verticalAlign: "top"
+    verticalAlign: "top",
+    padding: [0, 0, 0, 0]
 };
 
 var DEFAULT_COL_HEADER_STYLE =  {
     backgroundColor: "#fff",
-        borderColor: "#000",
-        borderStyle: "solid",
-        borderWidth: 1,
-        color: "#111",
-        fontFamily: "Arial, Helvetica, sans-serif",
-        fontSize: 20,
-        mask: parseInt('10000', 2),
-        textAlign: "left",
-        verticalAlign: "top"
+    borderColor: "#000",
+    borderStyle: "solid",
+    borderWidth: 1,
+    color: "#111",
+    fontFamily: "Arial, Helvetica, sans-serif",
+    fontSize: 20,
+    mask: parseInt('10000', 2),
+    textAlign: "left",
+    verticalAlign: "top",
+    padding: [0, 0, 0, 0]
 };
 
 var DEFAULT_COL_DATA_STYLE = {
     backgroundColor: "#fff",
-        borderColor: "#000",
-        borderStyle: "solid",
-        borderWidth: 1,
-        color: "#111",
-        fontFamily: "Arial, Helvetica, sans-serif",
-        fontSize: 20,
-        mask: parseInt('10000', 2),
-        textAlign: "left",
-        verticalAlign: "top"
+    borderColor: "#000",
+    borderStyle: "solid",
+    borderWidth: 1,
+    color: "#111",
+    fontFamily: "Arial, Helvetica, sans-serif",
+    fontSize: 20,
+    mask: parseInt('10000', 2),
+    textAlign: "left",
+    verticalAlign: "top",
+    padding: [0, 0, 0, 0]
 };
 
 var report = easyreport.init({
@@ -82,7 +85,7 @@ var report = easyreport.init({
         columns: {
             style: DEFAULT_COL_DATA_STYLE
         },
-        mode: 'portrait',
+        mode: 'landscape',
         paging: true,
         time: true
     }

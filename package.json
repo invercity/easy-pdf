@@ -1,6 +1,6 @@
 {
   "name": "easy-pdf",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "Library for generating pdf reports from different source types",
   "author": {
     "name": "Andriy Ermolenko",
@@ -20,5 +20,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/invercity/easy-pdf.git"
-  }
+  },
+  "license": "MIT"
 }
