@@ -1,5 +1,5 @@
 {
-  "name": "easy-pdf",
+  "name": "easy-report",
   "version": "0.3.6",
   "description": "Library for generating pdf reports from different source types",
   "author": {
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/invercity/easy-pdf.git"
+    "url": "https://github.com/invercity/easy-report.git"
   },
   "license": "MIT"
 }

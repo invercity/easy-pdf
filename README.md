@@ -1,5 +1,5 @@
-# easy-pdf
-### Create pdf reports from different sources
+# easy-report
+### Create reports from different sources
 [![NPM Version][npm-image]][npm-url]
 
 ## Usage
@@ -45,5 +45,5 @@
 ## License
 ### MIT
 
-[npm-image]: https://img.shields.io/npm/v/easy-pdf.svg
-[npm-url]: https://npmjs.org/package/easy-pdf
+[npm-image]: https://img.shields.io/npm/v/easy-report.svg
+[npm-url]: https://npmjs.org/package/easy-report
