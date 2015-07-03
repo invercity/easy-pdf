@@ -85,9 +85,10 @@ var report = easyreport.init({
         columns: {
             style: DEFAULT_COL_DATA_STYLE
         },
-        mode: 'landscape',
+        mode: 'portrait',
         paging: true,
-        time: true
+        time: true,
+        type: "docx"
     }
 
 });

@@ -7,6 +7,7 @@
     "email": "andriy.ermolenko@gmail.com"
   },
   "dependencies": {
+    "html-docx-js": "^0.2.2",
     "html-pdf": "^1.1.0",
     "jade": "^1.9.2",
     "shortid": "^2.2.1",

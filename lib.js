@@ -18,6 +18,7 @@
     var idGenerator = require('shortid');
     var jade  = require('jade');
     var path = require('path');
+    var docx = require('html-docx-js');
     var _ = require('underscore');
 
     /**
@@ -204,11 +205,29 @@
          * @param name (optional)
          */
         write: function(dist, name) {
-            var obj = this;
             var fileName = path.join(dist || '', name || this._id + '.' + this.options.type);
-            var ws = fs.createWriteStream(fileName);
             var html = this.generateHTML();
-            //fs.writeFileSync('result.html', html, 'utf8');
+            fs.writeFile("test.html", html, function(err) {
+                if (err) throw err;
+            });
+            if (this.options.type.toLowerCase() == 'docx') {
+                this.generateDOCX(html, fileName);
+            }
+            else {
+                this.generate(html, fileName);
+            }
+        },
+
+        generateDOCX: function(html, fileName) {
+            var docxObj = docx.asBlob(html);
+            fs.writeFile(fileName, docxObj, function(err) {
+                if (err) throw err;
+            });
+        },
+
+        generate: function(html, fileName) {
+            var obj = this;
+            var ws = fs.createWriteStream(fileName);
             pdf.create(html, {
                 border: obj.border,
                 orientation: obj.options.orientation,
