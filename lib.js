@@ -9,16 +9,14 @@
 (function() {
 
     /**
-     * Import deps
+     * Import dependencies
      */
 
     var fs = require('fs');
     var util = require('util');
-    var pdf = require('html-pdf');
     var idGenerator = require('shortid');
     var jade  = require('jade');
     var path = require('path');
-    var docx = require('html-docx-js');
     var _ = require('underscore');
 
     /**
@@ -200,45 +198,27 @@
         },
 
         /**
-         * Write result data to stream
+         * Write result data to file
          * @param dist (optional)
          * @param name (optional)
          */
         write: function(dist, name) {
-            var fileName = path.join(dist || '', name || this._id + '.' + this.options.type);
+            var type = this.options.type;
+            var fileName = path.join(dist || '', name || this._id + '.' + type);
             var html = this.generateHTML();
-            fs.writeFile("test.html", html, function(err) {
-                if (err) throw err;
+            var adaptors = fs.readdirSync(path.join(__dirname, 'ext'));
+            var ext = _.find(_.map(adaptors, function(el) {
+                var p = path.resolve(__dirname, 'ext', el);
+                return '.' + path.sep + path.relative(__dirname, p).replace('.js', '');
+            }), function(mod) {
+                var req = require(mod);
+                return ((req.types) && (req.types.indexOf(type) != -1));
             });
-            if (this.options.type.toLowerCase() == 'docx') {
-                this.generateDOCX(html, fileName);
-            }
+            if (!ext) throw "Unsupported output type";
             else {
-                this.generate(html, fileName);
+                var module = require(ext);
+                module.generate(html, this, fileName);
             }
-        },
-
-        generateDOCX: function(html, fileName) {
-            var docxObj = docx.asBlob(html);
-            fs.writeFile(fileName, docxObj, function(err) {
-                if (err) throw err;
-            });
-        },
-
-        generate: function(html, fileName) {
-            var obj = this;
-            var ws = fs.createWriteStream(fileName);
-            pdf.create(html, {
-                border: obj.border,
-                orientation: obj.options.orientation,
-                header: obj.header,
-                footer: obj.footer,
-                type: obj.options.type,
-                format: obj.options.format
-            }).toStream(function(err, stream) {
-                if (!err) stream.pipe(ws);
-                else console.log(err);
-            });
         }
     };
 }());

@@ -1,7 +1,7 @@
 {
   "name": "easy-report",
-  "version": "0.3.6",
-  "description": "Library for generating pdf reports from different source types",
+  "version": "0.4.0",
+  "description": "Library for generating reports from different source types",
   "author": {
     "name": "Andriy Ermolenko",
     "email": "andriy.ermolenko@gmail.com"

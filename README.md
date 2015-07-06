@@ -28,10 +28,34 @@
 ```options``` - Additional options: <br/>
     ```fontSize``` - Report data font size (default: `'12px'`) <br/>
     ```mode``` - Report orientation (default: `'portrait'`) <br/>
-    ```type``` - Report type, possible values: `'pdf'`, `'png'`, `'jpeg'` (default: `'pdf'`) <br/>
+    ```type``` - Report type (default: `'pdf'`) <br/>
     ```format``` - Report format (default: `'A4'`) <br/>
     ```paging``` - Add page numbers (default: `false`) <br/>
     ```time``` - Add report date & time (default: `false`) <br/>
+    
+## Supported types:    
+### Current
+* pdf
+* png
+* jpeg
+* docx
+
+### Adding custom output type
+To add custom type, just copy the type-adaptor template, and implement it:
+
+    cd ext/
+    cp sample.js <your_type>.js 
+Configure adapter:
+
+    types: ['supported', 'types']
+    
+Function which need to be implemented:
+
+    generate: function(html, options, filename) {}
+Parameters:    
+```html``` - html input <br/>
+```options``` - see `Options` <br/>
+```fileName``` - output file name
     
 ## Style class names
 ```pdf-column``` = column style <br/>
@@ -39,7 +63,7 @@
 ```pdf-list-header``` - list element header style <br/>
 
 ## Develop
-```npm test``` - run test page generator
+```npm test``` - run test page generator <br/>
 ```npm run clean``` - clean *.pdf files
 
 ## License
