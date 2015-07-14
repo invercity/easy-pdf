@@ -1,7 +1,7 @@
 /**
  * Created by Andriy Ermolenko on 24.03.15.
  */
-var easyreport = require('../lib');
+var reporter = require('../lib');
 
 var DEFAULT_TITLE_STYLE = {
     backgroundColor: "#fff",
@@ -45,7 +45,7 @@ var DEFAULT_COL_DATA_STYLE = {
     padding: [0, 0, 0, 0]
 };
 
-var report = easyreport.init({
+var report = reporter.init({
     title: {
         value: 'Report1',
         style: DEFAULT_TITLE_STYLE
@@ -88,7 +88,7 @@ var report = easyreport.init({
         mode: 'portrait',
         paging: true,
         time: true,
-        type: "docx"
+        type: "pdf"
     }
 
 });
