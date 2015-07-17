@@ -1,6 +1,6 @@
 {
   "name": "easy-report",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Library for generating reports from different source types",
   "author": {
     "name": "Andriy Ermolenko",

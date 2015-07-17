@@ -61,9 +61,8 @@
      * @return {*}
      */
     var parseStyle = function (obj) {
-        var clone;
+        var clone = _.clone(obj);
         if (obj.style) {
-            clone = _.clone(obj);
             var style = obj.style;
             clone.style = {
                 "font-family": style.fontFamily,
@@ -79,6 +78,8 @@
             };
             _.extend(clone.style, checkBorder(style.mask));
         }
+        // init style if null
+        clone.style || (clone.style = {});
         return clone;
     };
 
