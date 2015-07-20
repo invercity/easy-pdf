@@ -18,6 +18,7 @@
     var jade  = require('jade');
     var path = require('path');
     var _ = require('underscore');
+    var async = require('async');
 
     /**
      * Defines
@@ -239,40 +240,25 @@
      * @param name (optional)
      */
     Reporter.prototype.write = function(dist, name) {
+        var _that = this;
         var type = this.options.type;
-        var fileName = path.join(dist || '', name || this._id + '.' + type);
-        var html = this.generateHTML();
-        var module = this.getAdaptor(type);
-        if (!module) {
-            throw "Unsupported output type";
-        }
-        else {
-            module.generate(html, this, fileName);
-        }
-        /*var adaptors = fs.readdirSync(path.join(__dirname, 'ext'));
-        var ext = _.find(_.map(adaptors, function(el) {
-            var p = path.resolve(__dirname, 'ext', el);
-            return '.' + path.sep + path.relative(__dirname, p).replace('.js', '');
-        }), function(mod) {
-            var req = require(mod);
-            return ((req.types) && (req.types.indexOf(type) != -1));
+        Array.isArray(type) || (type = [type]);
+        _.each(type, function(t) {
+            var fileName = path.join(dist || '', name || this._id + '.' + t);
+            var html = _that.generateHTML();
+            var module = _that.getAdaptor(t);
+            if (!module) {
+                throw "Unsupported output type";
+            }
+            else {
+                module.generate(html, this, fileName);
+            }
         });
-        if (!ext) throw "Unsupported output type";
-        else {
-            var module = require(ext);
-            module.generate(html, this, fileName);
-        } */
     };
 
-    /*var obj = new Reporter();
-    console.log('?')
+    Report.prototype.writeAll = function(dist, name) {
+        //this.type =
+    };
 
-    module.exports.init = obj.init;
-    module.exports.getColumns = obj.getColumns;
-    module.exports.getTitle = obj.getTitle;
-    module.exports.write = obj.write;
-    module.exports.generateHTML = obj.generateHTML;
-    module.exports.generateInnerHTML = obj.generateInnerHTML;
-    module.exports.getAdaptor = obj.getAdaptor; */
     module.exports = new Reporter();
 }());
