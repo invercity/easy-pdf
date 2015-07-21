@@ -28,7 +28,7 @@
 ```options``` - Additional options: <br/>
     ```fontSize``` - Report data font size (default: `'12px'`) <br/>
     ```mode``` - Report orientation (default: `'portrait'`) <br/>
-    ```type``` - Report type (default: `'pdf'`) or Array of types to generate multiple files <br/>
+    ```types``` - Report types to be created (one or more) (default: ['pdf']) <br/>
     ```format``` - Report format (default: `'A4'`) <br/>
     ```paging``` - Add page numbers (default: `false`) <br/>
     ```time``` - Add report date & time (default: `false`) <br/>
@@ -36,8 +36,8 @@
 ## Supported types:
 ### Current
 * pdf
-* png
-* jpeg
+* png (need correcting) 
+* jpeg (need correcting)
 * docx
 
 ### Adding custom output type

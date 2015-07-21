@@ -88,9 +88,11 @@ var report = reporter.init({
         mode: 'portrait',
         paging: true,
         time: true,
-        type: "pdf"
+        types: ["pdf"]
     }
 
 });
-if (!process.env.LOG) report.write();
+if (!process.env.LOG) report.writeAll(function(res){
+    console.log(res)
+});
 else console.log(report.generateInnerHTML());

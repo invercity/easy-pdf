@@ -108,8 +108,8 @@
                 style: {}
             },
             orientation: 'portrait',
-            type: 'pdf',
-            format: 'A4'
+            types: ['pdf'],
+            format: 'Letter'
         };
     }
 
@@ -157,7 +157,7 @@
         // set report mode
         data.options.mode && (this.options.orientation = data.options.mode);
         // set output format
-        data.options.type && (this.options.type = data.options.type);
+        data.options.types && (this.options.types = data.options.types);
         // set font size
         data.options.fontSize && (this.options.fontSize = data.options.fontSize);
         // set columns style
@@ -238,26 +238,47 @@
      * Write result data to file
      * @param dist (optional)
      * @param name (optional)
+     * @param callback (optional)
      */
-    Reporter.prototype.write = function(dist, name) {
+    Reporter.prototype.write = function(dist, name, callback) {
         var _that = this;
-        var type = this.options.type;
-        Array.isArray(type) || (type = [type]);
-        _.each(type, function(t) {
-            var fileName = path.join(dist || '', name || this._id + '.' + t);
-            var html = _that.generateHTML();
+        var types = this.options.types;
+        var html = _that.generateHTML();
+        // fix if not array
+        Array.isArray(types) || (types = [types]);
+        async.mapSeries(types, function(t, callback) {
+            var fileName = path.join(dist || '', name || _that._id + '.' + t);
             var module = _that.getAdaptor(t);
             if (!module) {
                 throw "Unsupported output type";
             }
             else {
-                module.generate(html, this, fileName);
+                var options = _.extend(_that, {
+                    type: t
+                });
+                module.generate(html, options, fileName);
             }
+            callback(null, fileName);
+        }, function(err, res){
+            if (callback) callback(res);
         });
     };
 
-    Report.prototype.writeAll = function(dist, name) {
-        //this.type =
+    /**
+     * Generate all supported reports
+     * @param dist
+     * @param name
+     * @param callback
+     */
+    Reporter.prototype.writeAll = function(dist, name, callback) {
+        if (typeof dist === "function") {
+            callback = dist;
+            dist = null;
+        }
+        this.options.types = _.map(this.types, function(t) {
+            return t.name;
+        });
+        this.write(dist, name, callback);
     };
 
     module.exports = new Reporter();

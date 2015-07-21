@@ -1,12 +1,13 @@
 {
   "name": "easy-report",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Library for generating reports from different source types",
   "author": {
     "name": "Andriy Ermolenko",
     "email": "andriy.ermolenko@gmail.com"
   },
   "dependencies": {
+    "async": "^1.4.0",
     "html-docx-js": "^0.2.2",
     "html-pdf": "^1.1.0",
     "jade": "^1.9.2",
@@ -15,8 +16,8 @@
   },
   "main": "./lib.js",
   "scripts": {
-    "test": "rm -rf ./*.pdf && node test/main",
-    "clean": "rm -rf ./*.pdf"
+    "test": "rm -rf ./*.pdf ./*.png ./*.jpeg ./*.docx && node test/main",
+    "clean": "rm -rf ./*.pdf ./*.png ./*.jpeg ./*.docx"
   },
   "repository": {
     "type": "git",

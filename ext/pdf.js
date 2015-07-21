@@ -2,7 +2,7 @@ var pdf = require('html-pdf');
 var fs = require('fs');
 
 module.exports = {
-    types: ['pdf', 'png', 'jpeg'],
+    types: ['pdf'],
     generate: function(html, options, fileName) {
         var obj = options;
         var ws = fs.createWriteStream(fileName);
