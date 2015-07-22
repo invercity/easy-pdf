@@ -258,7 +258,10 @@
                 });
                 module.generate(html, options, fileName);
             }
-            callback(null, fileName);
+            callback(null, {
+                name: _that._id,
+                type: t
+            });
         }, function(err, res){
             if (callback) callback(res);
         });
